@@ -31,12 +31,6 @@ public class GiveMineCommand extends AbstractCommand {
         final Audience senderAudience = PlotMines.getInstance().getAdventure().sender(sender);
         final Audience targetAudience = PlotMines.getInstance().getAdventure().player(target);
 
-        // Check if the player has an empty inventory slot // TODO: Change this to drop the item on the ground if the inventory is full
-        if (target.getInventory().firstEmpty() == -1) {
-            senderAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getFullInventory()));
-            return;
-        }
-
         final ItemStack item = mineItem.creationItem();
         int intAmount;
         try {
@@ -46,6 +40,15 @@ public class GiveMineCommand extends AbstractCommand {
         }
         if (intAmount > 64) intAmount = 64; // Limit the amount to 64
         item.setAmount(intAmount);
+
+        if (target.getInventory().firstEmpty() == -1) {
+            target.getWorld().dropItem(target.getLocation(), item);
+            senderAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getAdminGivenFullInventory()));
+            targetAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerReceivedFullInventory()
+                    .replace("<mine>", StringUtil.formatString(mine))));
+            return;
+        }
+
         target.getInventory().addItem(item);
 
         // Send the messages to the player and the sender

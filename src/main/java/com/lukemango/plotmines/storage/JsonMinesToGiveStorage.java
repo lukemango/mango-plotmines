@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lukemango.plotmines.PlotMines;
-import com.lukemango.plotmines.manager.impl.Mine;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,10 +11,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 public class JsonMinesToGiveStorage {
@@ -68,7 +67,8 @@ public class JsonMinesToGiveStorage {
 
             if (file.exists()) {
                 final Reader reader = new FileReader(file);
-                final TypeToken<Set<Mine>> typeToken = new TypeToken<>() {};
+                final TypeToken<Map<UUID, List<String>>> typeToken = new TypeToken<>() {
+                };
                 final Map<UUID, List<String>> mineSet = gson.fromJson(reader, typeToken.getType());
                 if (mineSet != null) {
                     minesToGiveBack = mineSet;
@@ -80,7 +80,8 @@ public class JsonMinesToGiveStorage {
     }
 
     public void addMineToGiveBack(UUID uuid, String mine) {
-        this.minesToGiveBack.computeIfAbsent(uuid, k -> List.of()).add(mine);
+        this.minesToGiveBack.computeIfAbsent(uuid, k -> new ArrayList<>());
+        this.minesToGiveBack.get(uuid).add(mine);
         saveAll();
     }
 

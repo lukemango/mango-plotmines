@@ -4,7 +4,7 @@ admin-messages:
   mine-list-empty: "<red>No mines found!"
   mine-entry: "<yellow><mine> <green>(<yellow><world><green>) <yellow><x> <green><y> <yellow><z> <green><radius> <yellow><block> <green><amount> <yellow><delay>"
   mine-given: "<green>You gave <yellow><player> <amount>x <yellow><mine> <green>mine!"
-  full-inventory: "<red><name> has a full inventory!"
+  full-inventory: "<red><name> had a full inventory, the mine was dropped on the ground!"
   material-config-error: "<red>Please check configuration path <yellow><path></yellow> for value <yellow>'<value>'</yellow> and ensure it is spelt correctly!"
   error-occurred: "<red>An error occurred while trying to execute this command!"
   reloaded: "<green>Configuration, messages & mines reloaded!"

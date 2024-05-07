@@ -38,7 +38,7 @@ public class Messages extends AbstractConfig {
     public String getAdminMineListEmpty() { return this.getMessage("admin-messages.mine-list-empty"); }
     public String getAdminMineListEntry() { return this.getMessage("admin-messages.mine-list-entry"); }
     public String getAdminMineGiven() { return this.getMessage("admin-messages.mine-given"); }
-    public String getFullInventory() { return this.getMessage("admin-messages.full-inventory"); }
+    public String getAdminGivenFullInventory() { return this.getMessage("admin-messages.full-inventory"); }
     public String getAdminMaterialConfigError() { return this.getMessage("admin-messages.material-config-error"); }
     public String getAdminErrorOccurred() { return this.getMessage("admin-messages.error-occurred"); }
     public String getAdminReloaded() { return this.getMessage("admin-messages.reloaded"); }
