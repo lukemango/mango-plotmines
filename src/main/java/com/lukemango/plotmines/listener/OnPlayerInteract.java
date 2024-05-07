@@ -121,7 +121,8 @@ public class OnPlayerInteract implements Listener {
                 return;
             }
             // The player clicked a different block
-            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerAlreadyHaveRequest()));
+            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerAlreadyHaveRequest()
+                    .replace("<time>", String.valueOf(PREVIEW_DURATION))));
             return;
         }
 
@@ -152,7 +153,7 @@ public class OnPlayerInteract implements Listener {
 
         playerAudience.sendMessage(Colourify.colour(configManager.getMessages().getPlayerClickAgainToConfirm()
                 .replace("<mine>", StringUtil.formatString(mineItem.name()))
-                .replace("<time>", PREVIEW_DURATION + " seconds"))
+                .replace("<time>", String.valueOf(PREVIEW_DURATION)))
         );
     }
 }
