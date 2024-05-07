@@ -1,5 +1,6 @@
 package com.lukemango.plotmines.util;
 
+import com.lukemango.plotmines.config.ConfigManager;
 import com.lukemango.plotmines.manager.MineManager;
 import com.lukemango.plotmines.manager.impl.CreationResult;
 import com.lukemango.plotmines.manager.impl.Mine;
@@ -69,7 +70,12 @@ public class LocationUtil {
             return CreationResult.NOT_YOUR_PLOT;
         }
 
-        return plot.isOwner(player.getUniqueId()) ? CreationResult.SUCCESS : CreationResult.NOT_YOUR_PLOT;
+        // If the config is set to only create on your own plot, check if the player is the owner, else check if the player is added or the owner
+        if (ConfigManager.get().getConfig().getOnlyCreateOnOwnPlot()) {
+            return plot.isOwner(player.getUniqueId()) ? CreationResult.SUCCESS : CreationResult.NOT_YOUR_PLOT;
+        } else {
+            return plot.isAdded(player.getUniqueId()) || plot.isOwner(player.getUniqueId()) ? CreationResult.SUCCESS : CreationResult.NOT_YOUR_PLOT;
+        }
     }
 
     public static CreationResult checkMineBoundary(Player player, Location createdAt, int width, int depth) {

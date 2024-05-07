@@ -1,10 +1,11 @@
 settings:
   preview-block: LIME_STAINED_GLASS # The block that will be used to preview the mine's position
   max-display-name-length: 32 # The maximum length of the mine's display name
-  hologram-update-interval: 2 # The interval in seconds that the hologram will update
+  only-create-on-own-plot: true # If false, they can also create PlotMines on plots they are members of
 
 holograms:
   enabled: true # Whether to enable holograms (requires DecentHolograms plugin)
+  update-interval: 2 # The interval in seconds that the hologram will update
   offset: 1.5 # The offset of the hologram (y-axis)
   text:
     - '<gold><b><name>' # Placeholders available: <name> (Display Name) | <mine> (Type) | <owner> (Owner) | <reset-percent> (Reset Percentage) | <mined-percent> (Mined Percentage) | <mined-blocks> (Mined Blocks) | <total-blocks> (Total Blocks)

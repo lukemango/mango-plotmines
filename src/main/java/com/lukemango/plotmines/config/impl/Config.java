@@ -45,6 +45,10 @@ public class Config extends AbstractConfig {
         return getYamlConfiguration().getInt("settings.max-display-name-length");
     }
 
+    public boolean getOnlyCreateOnOwnPlot() {
+        return getYamlConfiguration().getBoolean("settings.only-create-on-own-plot");
+    }
+
     public int getHologramUpdateInterval() {
         return getYamlConfiguration().getInt("holograms.update-interval");
     }

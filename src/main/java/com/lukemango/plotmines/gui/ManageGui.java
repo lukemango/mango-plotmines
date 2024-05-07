@@ -20,6 +20,7 @@ public class ManageGui {
     private final Gui gui = Gui.gui()
             .title(Component.text(""))
             .rows(ConfigManager.get().getManageGuiConfig().getRows())
+            .disableAllInteractions()
             .create();
 
     public ManageGui(Mine mine) {
