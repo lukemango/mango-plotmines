@@ -97,7 +97,9 @@ public class MineManager {
         interactionBlock.getBlock().getState().update();
 
         // Create the hologram for the mine
-        PlotMines.getInstance().getHolograms().createHologram(mine);
+        if (ConfigManager.get().getConfig().areHologramsEnabled()) {
+            PlotMines.getInstance().getHolograms().createHologram(mine);
+        }
 
         // Inform the player that the mine was created
         playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerCreatedMine()
@@ -127,7 +129,12 @@ public class MineManager {
             mine.getResetTeleportLocation().toLocation().getBlock().getState().update();
         });
 
-        PlotMines.getInstance().getHolograms().removeHologram(mine);
+        // Remove the hologram
+        if (ConfigManager.get().getConfig().areHologramsEnabled()) {
+            PlotMines.getInstance().getHolograms().removeHologram(mine);
+        }
+
+        // Remove the mine from the list and save the changes
         mines.remove(mine);
         JsonStorageManager.saveAll();
     }
