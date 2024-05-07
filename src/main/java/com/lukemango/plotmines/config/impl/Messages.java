@@ -19,6 +19,7 @@ public class Messages extends AbstractConfig {
     public String getPlayerDeletedMine() { return this.getMessage("player-messages.deleted-mine"); }
     public String getPlayerDeletedByAdmin() { return this.getMessage("player-messages.deleted-by-admin"); }
     public String getPlayerResetMine() { return this.getMessage("player-messages.reset-mine"); }
+    public String getPlayerMineResetTeleportedOut() { return this.getMessage("player-messages.mine-reset-teleported-out"); }
     public String getPlayerReceivedMine() { return this.getMessage("player-messages.received-mine"); }
     public String getPlayerReceivedFullInventory() { return this.getMessage("player-messages.received-full-inventory"); }
     public String getPlayerInvalidLocation() { return this.getMessage("player-messages.invalid-location"); }

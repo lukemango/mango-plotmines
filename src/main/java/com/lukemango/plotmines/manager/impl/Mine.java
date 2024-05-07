@@ -1,6 +1,8 @@
 package com.lukemango.plotmines.manager.impl;
 
 import com.lukemango.plotmines.PlotMines;
+import com.lukemango.plotmines.config.ConfigManager;
+import com.lukemango.plotmines.util.Colourify;
 import com.lukemango.plotmines.util.FinePosition;
 import com.lukemango.plotmines.util.LocationUtil;
 import com.sk89q.worldedit.EditSession;
@@ -13,6 +15,7 @@ import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -85,8 +88,9 @@ public class Mine {
             if (mine == null || !mine.getUuid().equals(this.uuid)) continue;
 
             Bukkit.getScheduler().runTask(PlotMines.getInstance(), () -> player.teleport(this.resetTeleportLocation.toLocation()));
-            // TODO: Replace message
-            player.sendMessage("You have been teleported to the reset warp of the mine you were in.");
+
+            final Audience playerAudience = PlotMines.getInstance().getAdventure().player(player);
+            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerMineResetTeleportedOut()));
         }
 
         // WorldEdit Section
