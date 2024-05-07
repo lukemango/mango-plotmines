@@ -7,7 +7,6 @@ import com.lukemango.plotmines.config.ConfigManager;
 import com.lukemango.plotmines.config.impl.Config;
 import com.lukemango.plotmines.config.impl.impl.MineItem;
 import com.lukemango.plotmines.gui.ManageGui;
-import com.lukemango.plotmines.gui.MineManageGui;
 import com.lukemango.plotmines.manager.impl.CreationResult;
 import com.lukemango.plotmines.manager.impl.Mine;
 import com.lukemango.plotmines.util.Colourify;
@@ -55,7 +54,6 @@ public class OnPlayerInteract implements Listener {
         if (LocationUtil.getMineInteractionBlockFromLocation(player, clickedBlock.getLocation()) != null) {
             event.setCancelled(true);
             ManageGui.open(player, manageMine);
-            //MineManageGui.open(player, manageMine);
             return;
         }
 

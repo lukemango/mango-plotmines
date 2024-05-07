@@ -5,7 +5,6 @@ import com.lukemango.plotmines.commands.impl.DeleteMineCommand;
 import com.lukemango.plotmines.commands.impl.GiveMineCommand;
 import com.lukemango.plotmines.commands.impl.ReloadCommand;
 import com.lukemango.plotmines.config.ConfigManager;
-import com.lukemango.plotmines.gui.InventoryManager;
 import com.lukemango.plotmines.listener.OnBlockBreak;
 import com.lukemango.plotmines.listener.OnChatEvent;
 import com.lukemango.plotmines.listener.OnPlayerInteract;
@@ -24,7 +23,6 @@ public final class PlotMines extends JavaPlugin {
     private ConfigManager configManager;
     private MineManager mineManager;
     private CommandManager commandManager;
-    private InventoryManager inventoryManager;
 
     // Adventure
     private BukkitAudiences adventure;
@@ -52,9 +50,6 @@ public final class PlotMines extends JavaPlugin {
                 new ReloadCommand(),
                 new DeleteMineCommand()
         );
-
-        // Initialize the inventory manager
-        inventoryManager = new InventoryManager(this);
 
         // Initialize the holograms
         if (configManager.getConfig().areHologramsEnabled()
@@ -101,10 +96,6 @@ public final class PlotMines extends JavaPlugin {
 
     public CommandManager getCommandManager() {
         return commandManager;
-    }
-
-    public InventoryManager getInventoryManager() {
-        return inventoryManager;
     }
 
     public Holograms getHolograms() {
