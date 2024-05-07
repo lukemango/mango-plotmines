@@ -1,0 +1,52 @@
+settings:
+  rows: 5 # 1-6 rows
+  title: '<!i>Managing: <mine>'
+
+buttons:
+  set_display_name: # Do not remove or rename the buttons; you can modify the display name, lore, material, slot, etc.
+    material: NAME_TAG
+    name: '<yellow>Set Display Name'
+    lore:
+      - '<gray>Click to set the display name'
+    custom-model-data: 0
+    slot: 20
+  reset:
+    material: REDSTONE_TORCH
+    name: '<red>Reset'
+    lore:
+      - '<gray>Click to reset your mine'
+    custom-model-data: 0
+    slot: 22
+  remove:
+    material: BARRIER
+    name: '<red>Remove'
+    lore:
+      - '<gray>Click to remove your mine'
+    custom-model-data: 0
+    slot: 24
+
+design: # Free design, you can modify the material, name, lore, custom-model-data, and slots
+  border: # Name anything you want, add/remove as many as you want
+    material: BLACK_STAINED_GLASS_PANE
+    name: ' '
+    lore: []
+    custom-model-data: 0
+    slots: # Slot numbers: https://i.imgur.com/hC42loL.png (0-53 only - modify rows if you want more/less)
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+        - 6
+        - 7
+        - 8
+        - 36
+        - 37
+        - 38
+        - 39
+        - 40
+        - 41
+        - 42
+        - 43
+        - 44
