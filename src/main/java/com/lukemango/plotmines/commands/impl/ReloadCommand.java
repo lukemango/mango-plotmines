@@ -2,6 +2,7 @@ package com.lukemango.plotmines.commands.impl;
 
 import com.lukemango.plotmines.PlotMines;
 import com.lukemango.plotmines.config.ConfigManager;
+import com.lukemango.plotmines.listener.OnPlayerInteract;
 import com.lukemango.plotmines.storage.JsonStorageManager;
 import com.lukemango.plotmines.util.Colourify;
 import com.sk89q.worldedit.command.util.CommandPermissions;
@@ -16,6 +17,7 @@ public class ReloadCommand extends AbstractCommand {
     public void onReload(CommandSender sender) {
         ConfigManager.get().reload(); // Reload the config
         JsonStorageManager.load(); // Reload the mines
+        OnPlayerInteract.updateDuration(); // Update the preview duration
 
         // Reload the holograms if they are enabled
         if (ConfigManager.get().getConfig().areHologramsEnabled()) {

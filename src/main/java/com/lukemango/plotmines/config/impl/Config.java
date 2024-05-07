@@ -41,6 +41,17 @@ public class Config extends AbstractConfig {
         return Material.valueOf(getYamlConfiguration().getString("settings.preview-block").toUpperCase());
     }
 
+    public Material getPreviewClickBlock(CommandSender sender) {
+        if (!this.checkMaterial(sender, getYamlConfiguration().getString("settings.preview-click-block"), "settings.preview-click-block")) {
+            return Material.STONE;
+        }
+        return Material.valueOf(getYamlConfiguration().getString("settings.preview-click-block").toUpperCase());
+    }
+
+    public int getPreviewBlockDuration() {
+        return getYamlConfiguration().getInt("settings.preview-block-duration");
+    }
+
     public int getMaxDisplayNameLength() {
         return getYamlConfiguration().getInt("settings.max-display-name-length");
     }

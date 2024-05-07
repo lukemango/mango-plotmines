@@ -32,9 +32,15 @@ import java.util.concurrent.TimeUnit;
 
 public class OnPlayerInteract implements Listener {
 
+    private static int PREVIEW_DURATION = ConfigManager.get().getConfig().getPreviewBlockDuration();
     private final Cache<Player, Block> mineItemCache = CacheBuilder.newBuilder()
-            .expireAfterWrite(10, TimeUnit.SECONDS)
+            .expireAfterWrite(PREVIEW_DURATION, TimeUnit.SECONDS)
             .build();
+
+    // Used on reload
+    public static void updateDuration() {
+        PREVIEW_DURATION = ConfigManager.get().getConfig().getPreviewBlockDuration();
+    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent event) {
@@ -122,11 +128,18 @@ public class OnPlayerInteract implements Listener {
         // Display the outline of the mine
         final Material previewBlock = ConfigManager.get().getConfig().getPreviewBlock(player);
         for (Location loc : topOutline) { // TODO: Replace deprecated method
-            Bukkit.getScheduler().runTaskLaterAsynchronously(PlotMines.getInstance(), () ->
-                    player.sendBlockChange(loc, previewBlock, (byte) 0), 1L); // Sends 1 tick later
+            player.sendBlockChange(loc, previewBlock, (byte) 0);
         }
+        // Different block for the clicked block
+        Bukkit.getScheduler().runTaskLaterAsynchronously(PlotMines.getInstance(), () ->
+                player.sendBlockChange(
+                        event.getClickedBlock().getLocation(),
+                        ConfigManager.get().getConfig().getPreviewClickBlock(player),
+                        (byte) 0)
+                , 1L); // Sends 1 tick later
 
-        // Bukkit Task to undo the outline after 10 seconds
+
+        // Bukkit Task to undo the outline after PREVIEW_DURATION seconds
         Bukkit.getScheduler().runTaskLaterAsynchronously(PlotMines.getInstance(), () -> {
             // If the player isn't in the cache, don't update the blocks
             if (mineItemCache.getIfPresent(player) == null) return;
@@ -135,9 +148,11 @@ public class OnPlayerInteract implements Listener {
             for (Location loc : topOutline) {
                 player.sendBlockChange(loc, loc.getBlock().getBlockData());
             }
-        }, 200L); // 10 seconds
+        }, PREVIEW_DURATION * 20L); // 10 seconds
 
         playerAudience.sendMessage(Colourify.colour(configManager.getMessages().getPlayerClickAgainToConfirm()
-                .replace("<mine>", StringUtil.formatString(mineItem.name()))));
+                .replace("<mine>", StringUtil.formatString(mineItem.name()))
+                .replace("<time>", PREVIEW_DURATION + " seconds"))
+        );
     }
 }

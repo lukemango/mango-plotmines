@@ -1,5 +1,7 @@
 settings:
   preview-block: LIME_STAINED_GLASS # The block that will be used to preview the mine's position
+  preview-click-block: LIME_CONCRETE # The block the player clicked to create the mine and needs to click again to confirm
+  preview-block-duration: 10 # The duration in seconds that the preview block will be shown
   max-display-name-length: 32 # The maximum length of the mine's display name
   only-create-on-own-plot: true # If false, they can also create PlotMines on plots they are members of
 
