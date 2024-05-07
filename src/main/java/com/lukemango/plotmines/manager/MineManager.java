@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 public class MineManager {
 
@@ -107,20 +106,8 @@ public class MineManager {
         );
     }
 
-    public static void deleteMine(UUID uuid, Player player) {
-        final Audience playerAudience = PlotMines.getInstance().getAdventure().player(player);
-        final Mine mine = mines.stream().filter(m -> m.getUuid().equals(uuid)).findFirst().orElse(null);
-
-        if (mine == null) {
-            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getAdminMineNotFound()
-                    .replace("<mine>", uuid.toString())));
-            return;
-        }
-
+    public static void deleteMine(Mine mine) {
         mine.setBlocks(Map.of(Material.AIR, 100.0), true); // Remove the mine
-
-        playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerDeletedMine()
-                .replace("<mine>", mine.getDisplayName())));
 
         Bukkit.getScheduler().runTask(PlotMines.getInstance(), () -> {
             final Location interactionBlock = mine.getResetTeleportLocation().toLocation();

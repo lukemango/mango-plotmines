@@ -60,7 +60,10 @@ public class ManageGui {
                             player.closeInventory();
 
                             final MineItem mineItem = ConfigManager.get().getConfig().getMineItem(player, mine.getMineType());
-                            MineManager.deleteMine(mine.getUuid(), player);
+                            MineManager.deleteMine(mine);
+
+                            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerDeletedMine()
+                                    .replace("<mine>", mine.getDisplayName())));
 
                             if (player.getInventory().firstEmpty() == -1) {
                                 player.getLocation().getWorld().dropItem(player.getLocation(), mineItem.creationItem());
@@ -71,7 +74,8 @@ public class ManageGui {
 
                             player.getInventory().addItem(mineItem.creationItem());
                             playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerReceivedMine()
-                                    .replace("<mine>", StringUtil.formatString(mine.getMineType())))
+                                    .replace("<mine>", StringUtil.formatString(mine.getMineType()))
+                                    .replace("<amount>", "1"))
                             );
                             return;
                         }

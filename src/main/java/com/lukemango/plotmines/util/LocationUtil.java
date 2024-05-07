@@ -170,7 +170,8 @@ public class LocationUtil {
         );
 
         return MineManager.getMines().stream()
-                .filter(mine -> mine.getOwner().equals(player.getUniqueId()))
+                .filter(mine -> mine.getOwner().equals(player.getUniqueId())
+                        || player.hasPermission("mangoplotmines.admin")) // Check if the player is the owner or has the admin permission
                 .filter(mine -> mine.getResetTeleportLocation().blockX() == finePosition.blockX())
                 .filter(mine -> mine.getResetTeleportLocation().blockY() == finePosition.blockY())
                 .filter(mine -> mine.getResetTeleportLocation().blockZ() == finePosition.blockZ())

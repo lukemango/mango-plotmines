@@ -7,6 +7,7 @@ import com.lukemango.plotmines.manager.impl.Mine;
 import com.lukemango.plotmines.util.Colourify;
 import com.sk89q.worldedit.command.util.CommandPermissions;
 import net.kyori.adventure.audience.Audience;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotation.specifier.Greedy;
@@ -19,8 +20,7 @@ import java.util.List;
 
 public class DeleteMineCommand extends AbstractCommand {
 
-    // TODO: Don't require the player to be online to delete a mine
-    @Command("plotmines|plotmine|pmine|pm admin remove <target> <mine>")
+    @Command("plotmines|plotmine|pmine|pm admin delete|remove <target> <mine>")
     @CommandPermissions("mangoplotmines.admin")
     private void onRemove(CommandSender sender, @Argument("target") Player target, @Argument(value = "mine", suggestions = "players-mines") @Greedy String mine) {
         final Mine mineObject = MineManager.getMines().stream()
@@ -37,7 +37,7 @@ public class DeleteMineCommand extends AbstractCommand {
             return;
         }
 
-        MineManager.deleteMine(mineObject.getUuid(), target);
+        MineManager.deleteMine(mineObject);
 
         senderAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getAdminDeletedMine()
                 .replace("<player>", target.getName())
@@ -49,8 +49,8 @@ public class DeleteMineCommand extends AbstractCommand {
     }
 
     @Suggestions("players-mines")
-    public List<String> suggest(final CommandContext<CommandSender> commandContext, final String input) {
-        final Player target = commandContext.get("target");
+    public List<String> suggestPlayerMines(final CommandContext<CommandSender> commandContext, final String input) {
+        final OfflinePlayer target = commandContext.get("target");
 
         return MineManager.getMines().stream()
                 .filter(mine -> mine.getOwner().equals(target.getUniqueId()))
