@@ -29,7 +29,8 @@ public class Messages extends AbstractConfig {
     public String getPlayerDisplayNameChangeInitiated() { return this.getMessage("player-messages.display-name-change-initiated"); }
     public String getPlayerDisplayNameChanged() { return this.getMessage("player-messages.display-name-changed"); }
     public String getPlayerDisplayNameTooLong() { return this.getMessage("player-messages.display-name-too-long"); }
-
+    public String getPlayerPlotCleared() { return this.getMessage("player-messages.plot-cleared"); }
+    public String getPlayerPlotClearedFullInventory() { return this.getMessage("player-messages.plot-cleared-full-inventory"); }
 
     // Admin messages
     public String getAdminMineNotFound() { return this.getMessage("admin-messages.mine-not-found"); }

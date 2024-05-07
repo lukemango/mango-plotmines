@@ -31,7 +31,7 @@ public class GiveMineCommand extends AbstractCommand {
         final Audience senderAudience = PlotMines.getInstance().getAdventure().sender(sender);
         final Audience targetAudience = PlotMines.getInstance().getAdventure().player(target);
 
-        // Check if the player has an empty inventory slot
+        // Check if the player has an empty inventory slot // TODO: Change this to drop the item on the ground if the inventory is full
         if (target.getInventory().firstEmpty() == -1) {
             senderAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getFullInventory()));
             return;

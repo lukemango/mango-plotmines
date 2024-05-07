@@ -15,15 +15,21 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Set;
 
-public class JsonStorageManager {
+public class JsonMineStorage {
+
+    private static JsonMineStorage instance;
+
+    public JsonMineStorage() { // No need for this.load as it is called in the MineManager constructor
+        instance = this;
+    }
 
     /**
      * Save a mine to the JSON file
      */
-    public static void saveAll() {
+    public void saveAll() {
         try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");
+            final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            final File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");
 
             if (!file.exists()) {
                 file.getParentFile().mkdir(); // Creates the /data/
@@ -32,7 +38,7 @@ public class JsonStorageManager {
 
             final Set<Mine> mines = MineManager.getMines();
             if (mines != null) {
-                Writer writer = new FileWriter(file, false);
+                final Writer writer = new FileWriter(file, false);
                 gson.toJson(mines, writer);
                 writer.flush();
                 writer.close();
@@ -45,10 +51,10 @@ public class JsonStorageManager {
     /**
      * Load all mines from the JSON file
      */
-    public static void load() {
+    public void load() {
         try {
-            Gson gson = new Gson();
-            File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");
+            final Gson gson = new Gson();
+            final File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");
 
             if (!file.exists()) {
                 file.getParentFile().mkdir(); // Creates the /data/
@@ -56,9 +62,9 @@ public class JsonStorageManager {
             }
 
             if (file.exists()) {
-                Reader reader = new FileReader(file);
-                TypeToken<Set<Mine>> typeToken = new TypeToken<>() {};
-                Set<Mine> mineSet = gson.fromJson(reader, typeToken.getType());
+                final Reader reader = new FileReader(file);
+                final TypeToken<Set<Mine>> typeToken = new TypeToken<>() {};
+                final Set<Mine> mineSet = gson.fromJson(reader, typeToken.getType());
                 if (mineSet != null) {
                     MineManager.setMines(mineSet);
                 }
@@ -68,4 +74,7 @@ public class JsonStorageManager {
         }
     }
 
+    public static JsonMineStorage get() {
+        return instance;
+    }
 }

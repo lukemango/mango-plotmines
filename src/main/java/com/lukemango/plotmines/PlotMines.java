@@ -5,12 +5,16 @@ import com.lukemango.plotmines.commands.impl.DeleteMineCommand;
 import com.lukemango.plotmines.commands.impl.GiveMineCommand;
 import com.lukemango.plotmines.commands.impl.ReloadCommand;
 import com.lukemango.plotmines.config.ConfigManager;
-import com.lukemango.plotmines.listener.OnBlockBreak;
-import com.lukemango.plotmines.listener.OnChatEvent;
-import com.lukemango.plotmines.listener.OnPlayerInteract;
+import com.lukemango.plotmines.listener.BlockBreakListener;
+import com.lukemango.plotmines.listener.PlayerChatListener;
+import com.lukemango.plotmines.listener.PlayerInteractListener;
+import com.lukemango.plotmines.listener.PlayerJoinListener;
+import com.lukemango.plotmines.listener.PlotListener;
 import com.lukemango.plotmines.manager.MineManager;
-import com.lukemango.plotmines.storage.JsonStorageManager;
+import com.lukemango.plotmines.storage.JsonMineStorage;
+import com.lukemango.plotmines.storage.JsonMinesToGiveStorage;
 import com.lukemango.plotmines.util.Holograms;
+import com.plotsquared.core.PlotAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +34,13 @@ public final class PlotMines extends JavaPlugin {
     // Holograms
     private Holograms holograms;
 
+    // PlotSquared API
+    private PlotAPI plotAPI;
+
+    // Storage
+    private JsonMineStorage jsonMineStorage;
+    private JsonMinesToGiveStorage jsonMinesToGiveStorage;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -37,8 +48,16 @@ public final class PlotMines extends JavaPlugin {
         // Initialize adventure
         this.adventure = BukkitAudiences.create(this);
 
+        // Initialize PlotSquared API
+        this.plotAPI = new PlotAPI();
+        new PlotListener(plotAPI); // Register the PlotClear event listener
+
         // Initialize the config manager & configs with it
         configManager = new ConfigManager();
+
+        // Init storage
+        jsonMineStorage = new JsonMineStorage();
+        jsonMinesToGiveStorage = new JsonMinesToGiveStorage();
 
         // Initialize the mine manager
         mineManager = new MineManager(this);
@@ -61,15 +80,19 @@ public final class PlotMines extends JavaPlugin {
         }
 
         // Register listeners
-        getServer().getPluginManager().registerEvents(new OnPlayerInteract(), this);
-        getServer().getPluginManager().registerEvents(new OnBlockBreak(), this);
-        getServer().getPluginManager().registerEvents(new OnChatEvent(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
     }
 
     @Override
     public void onDisable() {
         // Save all mines to the JSON file
-        JsonStorageManager.saveAll();
+        this.jsonMineStorage.saveAll();
+
+        // Save all mines to give back to the JSON file
+        this.jsonMinesToGiveStorage.saveAll();
 
         // Close the adventure
         this.adventure.close();
@@ -84,6 +107,10 @@ public final class PlotMines extends JavaPlugin {
 
     public BukkitAudiences getAdventure() {
         return adventure;
+    }
+
+    public PlotAPI getPlotAPI() {
+        return plotAPI;
     }
 
     public ConfigManager getConfigManager() {

@@ -1,5 +1,6 @@
 package com.lukemango.plotmines.util;
 
+import com.lukemango.plotmines.PlotMines;
 import com.lukemango.plotmines.config.ConfigManager;
 import com.lukemango.plotmines.manager.MineManager;
 import com.lukemango.plotmines.manager.impl.CreationResult;
@@ -51,7 +52,7 @@ public class LocationUtil {
      * @param location The location to check
      * @return True if the location is within a plot, otherwise false
      */
-    public static CreationResult isLocationInPlot(Player player, Location location) {
+    public static CreationResult isLocationInAnyPlot(Player player, Location location) {
         final PlotAPI api = new PlotAPI();
         final com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
                 (int) Math.floor(location.getX()),
@@ -78,14 +79,34 @@ public class LocationUtil {
         }
     }
 
+    public static boolean isLocationInPlot(Location location, Plot plot) {
+        final com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
+                (int) Math.floor(location.getX()),
+                (int) Math.floor(location.getY()),
+                (int) Math.floor(location.getZ()),
+                0,
+                0);
+
+        final PlotArea plotArea = PlotMines.getInstance().getPlotAPI().getPlotSquared().getPlotAreaManager().getPlotArea(loc);
+        if (plotArea == null) {
+            return false;
+        }
+
+        if (plot == null || plotArea.getPlot(loc) == null) {
+            return false;
+        }
+
+        return plotArea.getPlot(loc).equals(plot);
+    }
+
     public static CreationResult checkMineBoundary(Player player, Location createdAt, int width, int depth) {
         width = width + 1; // Add 1 to get the correct width
 
         final Location max = createdAt.clone();
         final Location min = createdAt.clone().add(-width, -depth, -width);
 
-        final CreationResult resultMin = isLocationInPlot(player, min);
-        final CreationResult resultMax = isLocationInPlot(player, max);
+        final CreationResult resultMin = isLocationInAnyPlot(player, min);
+        final CreationResult resultMax = isLocationInAnyPlot(player, max);
 
         if (resultMin != CreationResult.SUCCESS) {
             return resultMin;

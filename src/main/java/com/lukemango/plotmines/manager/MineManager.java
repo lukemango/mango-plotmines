@@ -4,7 +4,7 @@ import com.lukemango.plotmines.PlotMines;
 import com.lukemango.plotmines.config.ConfigManager;
 import com.lukemango.plotmines.config.impl.impl.MineItem;
 import com.lukemango.plotmines.manager.impl.Mine;
-import com.lukemango.plotmines.storage.JsonStorageManager;
+import com.lukemango.plotmines.storage.JsonMineStorage;
 import com.lukemango.plotmines.util.Colourify;
 import com.lukemango.plotmines.util.FinePosition;
 import com.lukemango.plotmines.util.LocationUtil;
@@ -25,7 +25,7 @@ public class MineManager {
 
     public MineManager(PlotMines plugin) {
         // Load all mines from the JSON file
-        JsonStorageManager.load();
+        JsonMineStorage.get().load();
 
         // Reset all mines 1 second after the server starts
         Bukkit.getScheduler().runTaskLater(plugin, () -> mines.forEach(Mine::reset), 20); // 1 second delay
@@ -79,7 +79,7 @@ public class MineManager {
         );
 
         mines.add(mine);
-        JsonStorageManager.saveAll();
+        JsonMineStorage.get().saveAll();
 
         // Create the border and fill the mine with the composition
         mine.setBlocks(Map.of(mineItem.border(), 100.0), true); // Create the border
@@ -123,7 +123,7 @@ public class MineManager {
 
         // Remove the mine from the list and save the changes
         mines.remove(mine);
-        JsonStorageManager.saveAll();
+        JsonMineStorage.get().saveAll();
     }
 
     /**

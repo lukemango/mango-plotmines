@@ -25,3 +25,5 @@ player-messages:
   display-name-change-initiated: "<green>Type the new display name in chat to change the display name of your mine! Expires in 15 seconds!"
   display-name-changed: "<green>You changed the display name of your mine to <yellow><name></yellow>!"
   display-name-too-long: "<red>The display name you entered is too long!"
+  plot-cleared: "<green>The plot your <yellow><mine></yellow> mine was in was cleared, you have been given the mine item back!"
+  plot-cleared-full-inventory: "<red>The plot your <yellow><mine></yellow> mine was in was cleared, you have been given the mine item back but your inventory is full, it has been dropped on the ground!"

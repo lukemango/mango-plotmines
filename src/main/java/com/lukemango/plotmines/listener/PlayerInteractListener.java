@@ -30,7 +30,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class OnPlayerInteract implements Listener {
+public class PlayerInteractListener implements Listener {
 
     private static int PREVIEW_DURATION = ConfigManager.get().getConfig().getPreviewBlockDuration();
     private final Cache<Player, Block> mineItemCache = CacheBuilder.newBuilder()
