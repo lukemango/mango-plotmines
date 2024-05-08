@@ -71,7 +71,7 @@ tasks {
         archiveClassifier.set("noshade")
     }
     shadowJar {
-        archiveFileName.set("${project.name}-${project.version}.jar")
+        archiveFileName.set("${project.name}.jar") //-${project.version}
         sequenceOf(
             "org.incendo",
             "dev.triumphteam",

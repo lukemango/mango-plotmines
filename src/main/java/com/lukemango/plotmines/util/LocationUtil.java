@@ -185,8 +185,8 @@ public class LocationUtil {
     public static Mine getMineInteractionBlockFromLocation(Player player, Location location) {
         final FinePosition finePosition = new FinePosition(
                 location.getBlockX() + 1,
-                location.getBlockY() + 1, // Subtract 1 to get the correct location (as it's +2 to teleport the player)
-                location.getBlockZ(),
+                location.getBlockY() + 1,
+                location.getBlockZ() + 1,
                 location.getWorld().getName()
         );
 
