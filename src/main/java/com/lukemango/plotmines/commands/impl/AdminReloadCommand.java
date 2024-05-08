@@ -11,7 +11,7 @@ import net.kyori.adventure.audience.Audience;
 import org.bukkit.command.CommandSender;
 import org.incendo.cloud.annotations.Command;
 
-public class ReloadCommand extends AbstractCommand {
+public class AdminReloadCommand extends AbstractCommand {
 
     @Command("plotmines|plotmine|pmine|pm admin reload")
     @CommandPermissions("mangoplotmines.admin")

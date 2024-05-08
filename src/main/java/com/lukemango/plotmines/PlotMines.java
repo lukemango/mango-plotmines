@@ -1,9 +1,10 @@
 package com.lukemango.plotmines;
 
 import com.lukemango.plotmines.commands.CommandManager;
-import com.lukemango.plotmines.commands.impl.DeleteMineCommand;
-import com.lukemango.plotmines.commands.impl.GiveMineCommand;
-import com.lukemango.plotmines.commands.impl.ReloadCommand;
+import com.lukemango.plotmines.commands.impl.AdminDeleteMineCommand;
+import com.lukemango.plotmines.commands.impl.AdminGiveMineCommand;
+import com.lukemango.plotmines.commands.impl.AdminReloadCommand;
+import com.lukemango.plotmines.commands.impl.PlayerDeleteMineCommand;
 import com.lukemango.plotmines.config.ConfigManager;
 import com.lukemango.plotmines.listener.BlockBreakListener;
 import com.lukemango.plotmines.listener.PlayerChatListener;
@@ -65,9 +66,10 @@ public final class PlotMines extends JavaPlugin {
         // Initialize the command manager
         commandManager = new CommandManager();
         commandManager.registerCommand(
-                new GiveMineCommand(),
-                new ReloadCommand(),
-                new DeleteMineCommand()
+                new AdminGiveMineCommand(),
+                new AdminReloadCommand(),
+                new AdminDeleteMineCommand(),
+                new PlayerDeleteMineCommand()
         );
 
         // Initialize the holograms

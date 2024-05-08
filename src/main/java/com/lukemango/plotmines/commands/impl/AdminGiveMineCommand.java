@@ -17,7 +17,7 @@ import org.incendo.cloud.context.CommandContext;
 
 import java.util.List;
 
-public class GiveMineCommand extends AbstractCommand {
+public class AdminGiveMineCommand extends AbstractCommand {
 
     @Command("plotmines|plotmine|pmine|pm admin give <target> <mine> [amount]")
     @CommandPermissions("mangoplotmines.admin")
