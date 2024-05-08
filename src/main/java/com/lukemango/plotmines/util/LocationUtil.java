@@ -184,18 +184,18 @@ public class LocationUtil {
 
     public static Mine getMineInteractionBlockFromLocation(Player player, Location location) {
         final FinePosition finePosition = new FinePosition(
-                location.getBlockX() + 1,
+                location.getBlockX(),
                 location.getBlockY() + 1,
-                location.getBlockZ() + 1,
+                location.getBlockZ() ,
                 location.getWorld().getName()
         );
 
         return MineManager.getMines().stream()
                 .filter(mine -> mine.getOwner().equals(player.getUniqueId())
                         || player.hasPermission("mangoplotmines.admin")) // Check if the player is the owner or has the admin permission
-                .filter(mine -> mine.getResetTeleportLocation().blockX() == finePosition.blockX())
-                .filter(mine -> mine.getResetTeleportLocation().blockY() == finePosition.blockY())
-                .filter(mine -> mine.getResetTeleportLocation().blockZ() == finePosition.blockZ())
+                .filter(mine -> Math.floor(mine.getResetTeleportLocation().x()) == Math.floor(finePosition.x()))
+                .filter(mine -> Math.floor(mine.getResetTeleportLocation().y()) == Math.floor(finePosition.y()))
+                .filter(mine -> Math.floor(mine.getResetTeleportLocation().z()) == Math.floor(finePosition.z()))
                 .filter(mine -> mine.getResetTeleportLocation().world().equals(finePosition.world()))
                 .findFirst()
                 .orElse(null);
