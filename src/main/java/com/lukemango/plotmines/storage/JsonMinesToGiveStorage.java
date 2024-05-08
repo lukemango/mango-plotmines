@@ -82,15 +82,18 @@ public class JsonMinesToGiveStorage {
     public void addMineToGiveBack(UUID uuid, String mine) {
         this.minesToGiveBack.computeIfAbsent(uuid, k -> new ArrayList<>());
         this.minesToGiveBack.get(uuid).add(mine);
-        saveAll();
+        this.saveAll();
     }
 
     public void removeMinesToGiveBack(UUID uuid) {
         this.minesToGiveBack.remove(uuid);
-        saveAll();
+        this.saveAll();
     }
 
     public List<String> getMinesToGiveBack(UUID uuid) {
+        if (!this.minesToGiveBack.containsKey(uuid)) {
+            return new ArrayList<>();
+        }
         return this.minesToGiveBack.get(uuid);
     }
 
