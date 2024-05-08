@@ -50,9 +50,10 @@ dependencies {
 
     // Adventure
     implementation("net.kyori:adventure-platform-bukkit:4.3.2")
+    implementation("net.kyori:adventure-text-minimessage:4.17.0")
 
     // TriumphGui
-    implementation("dev.triumphteam:triumph-gui:3.1.7")
+    implementation("dev.triumphteam:triumph-gui:3.1.7") { exclude("net.kyori") }
 
     // DecentHolograms
     compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.6")
@@ -70,18 +71,16 @@ tasks {
         archiveClassifier.set("noshade")
     }
     shadowJar {
-        minimize()
         archiveFileName.set("${project.name}-${project.version}.jar")
         sequenceOf(
             "org.incendo",
             "dev.triumphteam",
-            //"net.kyori",
+            "net.kyori",
             "io.papermc.lib",
             "io.leangen.geantyref",
         ).forEach {
             relocate(it, "com.lukemango.plotmines.lib.$it")
         }
-        mergeServiceFiles()
     }
     processResources {
         val tokens = mapOf(

@@ -186,7 +186,7 @@ public class LocationUtil {
         final FinePosition finePosition = new FinePosition(
                 location.getBlockX() + 1,
                 location.getBlockY() + 1, // Subtract 1 to get the correct location (as it's +2 to teleport the player)
-                location.getBlockZ() + 1,
+                location.getBlockZ(),
                 location.getWorld().getName()
         );
 
