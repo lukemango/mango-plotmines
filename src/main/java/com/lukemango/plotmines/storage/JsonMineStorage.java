@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public class JsonMineStorage {
 
@@ -53,8 +54,8 @@ public class JsonMineStorage {
     /**
      * Load all mines from the JSON file
      */
-    public void load() {
-        PlotMines.getInstance().getServer().getScheduler().runTaskAsynchronously(PlotMines.getInstance(), () -> {
+    public CompletableFuture<Void> load() {
+        return CompletableFuture.runAsync(() -> {
             try {
                 final Gson gson = new Gson();
                 final File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");

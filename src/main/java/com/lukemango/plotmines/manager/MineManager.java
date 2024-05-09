@@ -24,11 +24,11 @@ public class MineManager {
     private static Set<Mine> mines = new HashSet<>();
 
     public MineManager(PlotMines plugin) {
-        // Load all mines from the JSON file
-        JsonMineStorage.get().load();
-
-        // Reset all mines 1 second after the server starts
-        Bukkit.getScheduler().runTaskLater(plugin, () -> mines.forEach(Mine::reset), 20); // 1 second delay
+        // Load all mines from the JSON file and reset them
+        JsonMineStorage.get().load().thenRun(() -> {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> mines.forEach(Mine::reset), 0);
+            plugin.getHolograms().loadHolograms();
+        });
     }
 
     public void createMine(Location init, MineItem mineItem, Player player) {

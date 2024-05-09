@@ -23,7 +23,7 @@ public class Holograms {
     private final Map<UUID, Hologram> holograms = new HashMap<>();
     private BukkitTask task; // Task to refresh the holograms
 
-    public Holograms() {
+    public void loadHolograms() {
         for (Mine mine : MineManager.getMines()) {
             this.createHologram(mine);
         }
