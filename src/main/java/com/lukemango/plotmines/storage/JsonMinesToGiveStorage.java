@@ -32,51 +32,55 @@ public class JsonMinesToGiveStorage {
      * Save a mine to the JSON file
      */
     public void saveAll() {
-        try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minestogive.json");
+        PlotMines.getInstance().getServer().getScheduler().runTaskAsynchronously(PlotMines.getInstance(), () -> {
+            try {
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minestogive.json");
 
-            if (!file.exists()) {
-                file.getParentFile().mkdir(); // Creates the /data/
-                file.createNewFile(); // Creates the /data/minestogive.json
-            }
+                if (!file.exists()) {
+                    file.getParentFile().mkdir(); // Creates the /data/
+                    file.createNewFile(); // Creates the /data/minestogive.json
+                }
 
-            if (minesToGiveBack != null) {
-                final Writer writer = new FileWriter(file, false);
-                gson.toJson(minesToGiveBack, writer);
-                writer.flush();
-                writer.close();
+                if (minesToGiveBack != null) {
+                    final Writer writer = new FileWriter(file, false);
+                    gson.toJson(minesToGiveBack, writer);
+                    writer.flush();
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     /**
      * Load all mines from the JSON file
      */
     public void load() {
-        try {
-            Gson gson = new Gson();
-            File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minestogive.json");
+        PlotMines.getInstance().getServer().getScheduler().runTaskAsynchronously(PlotMines.getInstance(), () -> {
+            try {
+                Gson gson = new Gson();
+                File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minestogive.json");
 
-            if (!file.exists()) {
-                file.getParentFile().mkdir(); // Creates the /data/
-                file.createNewFile(); // Creates the /data/minestogive.json
-            }
-
-            if (file.exists()) {
-                final Reader reader = new FileReader(file);
-                final TypeToken<Map<UUID, List<String>>> typeToken = new TypeToken<>() {
-                };
-                final Map<UUID, List<String>> mineSet = gson.fromJson(reader, typeToken.getType());
-                if (mineSet != null) {
-                    minesToGiveBack = mineSet;
+                if (!file.exists()) {
+                    file.getParentFile().mkdir(); // Creates the /data/
+                    file.createNewFile(); // Creates the /data/minestogive.json
                 }
+
+                if (file.exists()) {
+                    final Reader reader = new FileReader(file);
+                    final TypeToken<Map<UUID, List<String>>> typeToken = new TypeToken<>() {
+                    };
+                    final Map<UUID, List<String>> mineSet = gson.fromJson(reader, typeToken.getType());
+                    if (mineSet != null) {
+                        minesToGiveBack = mineSet;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     public void addMineToGiveBack(UUID uuid, String mine) {
