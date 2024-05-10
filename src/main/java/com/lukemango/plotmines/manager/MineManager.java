@@ -26,7 +26,7 @@ public class MineManager {
     public MineManager(PlotMines plugin) {
         // Load all mines from the JSON file and reset them
         JsonMineStorage.get().load().thenRun(() -> {
-            Bukkit.getScheduler().runTaskLater(plugin, () -> mines.forEach(Mine::reset), 0);
+            Bukkit.getScheduler().runTask(plugin, () -> mines.forEach(Mine::reset));
             plugin.getHolograms().loadHolograms();
         });
     }
