@@ -108,6 +108,11 @@ public class LocationUtil {
         final CreationResult resultMin = isLocationInAnyPlot(player, min);
         final CreationResult resultMax = isLocationInAnyPlot(player, max);
 
+        // Is the min Y level below -63?
+        if (min.getBlockY() < -63) {
+            return CreationResult.NOT_YOUR_PLOT;
+        }
+
         if (resultMin != CreationResult.SUCCESS) {
             return resultMin;
         }
