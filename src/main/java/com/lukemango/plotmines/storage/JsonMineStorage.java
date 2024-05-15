@@ -27,8 +27,8 @@ public class JsonMineStorage {
     /**
      * Save a mine to the JSON file
      */
-    public void saveAll() {
-        PlotMines.getInstance().getServer().getScheduler().runTaskAsynchronously(PlotMines.getInstance(), () -> { // Save the mines asynchronously (non-blocking)
+    public CompletableFuture<Void> saveAll() {
+        return CompletableFuture.runAsync(() -> {
             try {
                 final Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 final File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minedata.json");

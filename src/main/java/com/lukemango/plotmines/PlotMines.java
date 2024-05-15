@@ -19,6 +19,8 @@ import com.plotsquared.core.PlotAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.CompletableFuture;
+
 public final class PlotMines extends JavaPlugin {
 
     // Singleton instance
@@ -90,11 +92,10 @@ public final class PlotMines extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Save all mines to the JSON file
-        this.jsonMineStorage.saveAll();
-
-        // Save all mines to give back to the JSON file
-        this.jsonMinesToGiveStorage.saveAll();
+        // Save all mines and mines to give
+        CompletableFuture<Void> saveMines = this.jsonMineStorage.saveAll();
+        CompletableFuture<Void> saveMinesToGive = saveMines.thenCompose(result -> this.jsonMinesToGiveStorage.saveAll());
+        saveMinesToGive.join(); // Wait for the completion
 
         // Close the adventure
         this.adventure.close();

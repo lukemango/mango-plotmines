@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lukemango.plotmines.PlotMines;
+import org.incendo.cloud.util.CompletableFutures;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public class JsonMinesToGiveStorage {
 
@@ -31,8 +33,8 @@ public class JsonMinesToGiveStorage {
     /**
      * Save a mine to the JSON file
      */
-    public void saveAll() {
-        PlotMines.getInstance().getServer().getScheduler().runTaskAsynchronously(PlotMines.getInstance(), () -> {
+    public CompletableFuture<Void> saveAll() {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 File file = new File(PlotMines.getInstance().getDataFolder().getAbsolutePath() + "/data/minestogive.json");

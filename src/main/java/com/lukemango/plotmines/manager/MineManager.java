@@ -26,8 +26,8 @@ public class MineManager {
     public MineManager(PlotMines plugin) {
         // Load all mines from the JSON file and reset them
         JsonMineStorage.get().load().thenRun(() -> {
+            PlotMines.getInstance().getLogger().info("Loaded " + mines.size() + " plot mine(s) from storage");
             mines.forEach(Mine::reset);
-            plugin.getHolograms().loadHolograms();
         });
     }
 
