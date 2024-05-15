@@ -6,7 +6,7 @@ settings:
   only-create-on-own-plot: true # If false, they can also create PlotMines on plots they are members of
 
 holograms:
-  enabled: true # Whether to enable holograms (requires DecentHolograms plugin)
+  enabled: true # Whether to enable holograms (requires DecentHolograms plugin | reboot to apply changes)
   update-interval: 2 # The interval in seconds that the hologram will update
   offset: 1.5 # The offset of the hologram (y-axis)
   text:

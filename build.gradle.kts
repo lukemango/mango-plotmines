@@ -19,7 +19,7 @@ bukkitPluginYaml {
     apiVersion = "1.20"
     website = "https://github.com/lukemango/mango-plotmines"
     authors = listOf("lukemango")
-    softDepend = listOf("FastAsyncWorldEdit", "PlotSquared")
+    softDepend = listOf("FastAsyncWorldEdit", "PlotSquared", "DecentHolograms")
 }
 
 repositories {
