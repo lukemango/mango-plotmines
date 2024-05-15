@@ -16,6 +16,7 @@ import com.lukemango.plotmines.storage.JsonMineStorage;
 import com.lukemango.plotmines.storage.JsonMinesToGiveStorage;
 import com.lukemango.plotmines.util.Holograms;
 import com.plotsquared.core.PlotAPI;
+import com.rylinaux.plugman.api.PlugManAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -81,6 +82,11 @@ public final class PlotMines extends JavaPlugin {
         } else {
             holograms = null;
             this.getLogger().warning("Holograms are disabled or DecentHolograms is not installed. Holograms will not be displayed.");
+        }
+
+        // Anti-PlugMan (breaks because of PlotSquared events - cannot unregister them onDisable)
+        if (getServer().getPluginManager().getPlugin("PlugManX") != null) {
+            PlugManAPI.iDoNotWantToBeUnOrReloaded("mango-plotmines");
         }
 
         // Register listeners
