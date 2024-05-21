@@ -22,7 +22,7 @@ If applicable, add screenshots to help explain your problem.
 **Server Version**
 Screenshot output of `/version`
 
-**Plugin Version:**
+**Plugin Version**
 Screenshot output of `/version mango-plotmines`
 
 **Additional context**
