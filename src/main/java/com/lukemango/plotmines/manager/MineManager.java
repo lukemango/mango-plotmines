@@ -22,18 +22,21 @@ import java.util.Set;
 public class MineManager {
 
     private static Set<Mine> mines = new HashSet<>();
+    private final PlotMines plugin;
 
     public MineManager(PlotMines plugin) {
+        this.plugin = plugin;
+
         // Load all mines from the JSON file and reset them
         JsonMineStorage.get().load().thenRun(() -> {
-            PlotMines.getInstance().getLogger().info("Loaded " + mines.size() + " plot mine(s) from storage");
+            plugin.getLogger().info("Loaded " + mines.size() + " plot mine(s) from storage");
             mines.forEach(Mine::reset);
         });
     }
 
     public void createMine(Location init, MineItem mineItem, Player player) {
         final Location[][] corners = LocationUtil.getMineLocationFromCreationPoint(init, mineItem.width(), mineItem.depth());
-        final Audience playerAudience = PlotMines.getInstance().getAdventure().player(player);
+        final Audience playerAudience = plugin.getAdventure().player(player);
 
         final FinePosition minimum = new FinePosition(
                 corners[0][0].getX(),
@@ -97,7 +100,7 @@ public class MineManager {
 
         // Create the hologram for the mine
         if (ConfigManager.get().getConfig().areHologramsEnabled()) {
-            PlotMines.getInstance().getHolograms().createHologram(mine);
+            plugin.getHolograms().createHologram(mine);
         }
 
         // Inform the player that the mine was created
