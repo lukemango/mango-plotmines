@@ -18,6 +18,6 @@ public record FinePosition(double x, double y, double z, String world) {
     }
 
     public Location toLocation() {
-        return new Location(PlotMines.getInstance().getServer().getWorld(this.world), this.x, this.y, this.z);
+        return new Location(PlotMines.getInstance().getServer().getWorld(this.world), this.x, this.y, this.z, -180, 0);
     }
 }
