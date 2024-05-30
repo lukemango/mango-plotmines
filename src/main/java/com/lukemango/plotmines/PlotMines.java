@@ -18,6 +18,7 @@ import com.lukemango.plotmines.util.Holograms;
 import com.plotsquared.core.PlotAPI;
 import com.rylinaux.plugman.api.PlugManAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.CompletableFuture;
@@ -94,6 +95,9 @@ public final class PlotMines extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+
+        // bStats
+        new Metrics(this, 22070);
     }
 
     @Override

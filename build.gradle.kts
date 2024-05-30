@@ -61,6 +61,9 @@ dependencies {
 
     // PlugMan
     compileOnly("com.rylinaux:PlugMan:2.3.3")
+
+    // bStats
+    implementation("org.bstats:bstats-bukkit:3.0.2")
 }
 
 indra {
@@ -82,6 +85,7 @@ tasks {
             "net.kyori",
             "io.papermc.lib",
             "io.leangen.geantyref",
+            "org.bstats"
         ).forEach {
             relocate(it, "com.lukemango.plotmines.lib.$it")
         }
