@@ -90,7 +90,8 @@ public class Mine {
             Bukkit.getScheduler().runTask(PlotMines.getInstance(), () -> player.teleport(this.resetTeleportLocation.toLocation()));
 
             final Audience playerAudience = PlotMines.getInstance().getAdventure().player(player);
-            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerMineResetTeleportedOut()));
+            playerAudience.sendMessage(Colourify.colour(ConfigManager.get().getMessages().getPlayerMineResetTeleportedOut()
+                    .replace("<mine>", this.displayName)));
         }
 
         // WorldEdit Section
