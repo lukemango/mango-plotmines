@@ -15,14 +15,14 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CommandManager {
 
-    private static final PaperCommandManager<CommandSender> commandManager = new PaperCommandManager<>(
+    private final PaperCommandManager<CommandSender> commandManager = new PaperCommandManager<>(
             PlotMines.getInstance(),
             ExecutionCoordinator.asyncCoordinator(),
             SenderMapper.identity()
     );
-    private static final AnnotationParser<CommandSender> annotationParser;
+    private final AnnotationParser<CommandSender> annotationParser;
 
-    static {
+    public CommandManager() {
         commandManager.settings().set(ManagerSetting.OVERRIDE_EXISTING_COMMANDS, true);
         commandManager.settings().set(ManagerSetting.ALLOW_UNSAFE_REGISTRATION, true);
 
