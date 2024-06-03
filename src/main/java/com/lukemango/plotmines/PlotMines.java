@@ -111,7 +111,7 @@ public final class PlotMines extends JavaPlugin {
         this.adventure.close();
 
         // Delete all holograms
-        holograms.removeAllHolograms();
+        if (holograms != null) holograms.removeAllHolograms();
     }
 
     public static PlotMines getInstance() {
