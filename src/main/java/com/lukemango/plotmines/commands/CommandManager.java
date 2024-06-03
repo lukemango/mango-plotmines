@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.incendo.cloud.SenderMapper;
 import org.incendo.cloud.annotations.AnnotationParser;
 import org.incendo.cloud.execution.ExecutionCoordinator;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
 import org.incendo.cloud.paper.PaperCommandManager;
 import org.incendo.cloud.parser.ArgumentParser;
 import org.incendo.cloud.setting.ManagerSetting;
@@ -15,7 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CommandManager {
 
-    private final PaperCommandManager<CommandSender> commandManager = new PaperCommandManager<>(
+    private final LegacyPaperCommandManager<CommandSender> commandManager = new LegacyPaperCommandManager<>(
             PlotMines.getInstance(),
             ExecutionCoordinator.asyncCoordinator(),
             SenderMapper.identity()

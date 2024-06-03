@@ -35,6 +35,11 @@ dependencies {
     // Spigot
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
 
+    // Cloud
+    implementation("org.incendo:cloud-paper:2.0.0-beta.8")
+    implementation("org.incendo:cloud-minecraft-extras:2.0.0-beta.8")
+    implementation("org.incendo:cloud-annotations:2.0.0-rc.2")
+
     // FastAsyncWorldEdit
     implementation(platform("com.intellectualsites.bom:bom-newest:1.44")) // Also used for PlotSquared
     compileOnly("com.fastasyncworldedit:FastAsyncWorldEdit-Core")
@@ -43,11 +48,6 @@ dependencies {
     // PlotSquared
     compileOnly("com.intellectualsites.plotsquared:plotsquared-core")
     compileOnly("com.intellectualsites.plotsquared:plotsquared-bukkit")
-
-    // Cloud
-    implementation("org.incendo:cloud-paper:2.0.0-beta.2")
-    implementation("org.incendo:cloud-minecraft-extras:2.0.0-beta.2")
-    implementation("org.incendo:cloud-annotations:2.0.0-beta.2")
 
     // Adventure
     implementation("net.kyori:adventure-platform-bukkit:4.3.2")
