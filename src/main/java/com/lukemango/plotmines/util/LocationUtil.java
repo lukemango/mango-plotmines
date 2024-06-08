@@ -25,7 +25,7 @@ public class LocationUtil {
      */
     public static @Nullable Mine isLocationInMine(Location location) {
         // Get a list of the mines in the same world as the location
-        final List<Mine> mineList = new ArrayList<>();
+        List<Mine> mineList = new ArrayList<>();
         MineManager.getMines().stream().filter(mine -> mine.getMaximum().world().equals(location.getWorld().getName())).forEach(mineList::add);
         if (MineManager.getMines().isEmpty()) return null;
 
@@ -35,7 +35,7 @@ public class LocationUtil {
             double y = Math.floor(location.getY());
             double z = Math.floor(location.getZ());
             if (x >= mine.getMinimum().x() && x <= mine.getMaximum().x()) {
-                if (y>= mine.getMinimum().y() && y <= mine.getMaximum().y()) {
+                if (y >= mine.getMinimum().y() && y <= mine.getMaximum().y()) {
                     if (z >= mine.getMinimum().z() && z <= mine.getMaximum().z()) {
                         return mine;
                     }
@@ -53,20 +53,20 @@ public class LocationUtil {
      * @return True if the location is within a plot, otherwise false
      */
     public static CreationResult isLocationInAnyPlot(Player player, Location location) {
-        final PlotAPI api = new PlotAPI();
-        final com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
+        PlotAPI api = new PlotAPI();
+        com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
                 (int) Math.floor(location.getX()),
                 (int) Math.floor(location.getY()),
                 (int) Math.floor(location.getZ()),
                 0,
                 0);
 
-        final PlotArea plotArea = api.getPlotSquared().getPlotAreaManager().getPlotArea(loc);
+        PlotArea plotArea = api.getPlotSquared().getPlotAreaManager().getPlotArea(loc);
         if (plotArea == null) {
             return CreationResult.NO_PLOT_FOUND;
         }
 
-        final Plot plot = plotArea.getPlot(loc);
+        Plot plot = plotArea.getPlot(loc);
         if (plot == null) {
             return CreationResult.NOT_YOUR_PLOT;
         }
@@ -80,7 +80,7 @@ public class LocationUtil {
     }
 
     public static boolean isLocationInPlot(Location location, Plot plot) {
-        final com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
+        com.plotsquared.core.location.Location loc = com.plotsquared.core.location.Location.at(location.getWorld().getName(),
                 (int) Math.floor(location.getX()),
                 (int) Math.floor(location.getY()),
                 (int) Math.floor(location.getZ()),
@@ -102,22 +102,24 @@ public class LocationUtil {
     public static CreationResult checkMineBoundary(Player player, Location createdAt, int width, int depth) {
         width = width + 1; // Add 1 to get the correct width
 
-        final Location max = createdAt.clone();
-        final Location min = createdAt.clone().add(-width, -depth, -width);
-
-        final CreationResult resultMin = isLocationInAnyPlot(player, min);
-        final CreationResult resultMax = isLocationInAnyPlot(player, max);
+        Location max = createdAt.clone();
+        Location min = createdAt.clone().add(-width, -depth, -width);
 
         // Is the min Y level below -63?
         if (min.getBlockY() < -63) {
             return CreationResult.NOT_YOUR_PLOT;
         }
 
-        if (resultMin != CreationResult.SUCCESS) {
-            return resultMin;
+        // Check each outline location to see if it's in a plot
+        List<Location> outline = getOutline(createdAt, width);
+        for (Location location : outline) {
+            CreationResult result = isLocationInAnyPlot(player, location);
+            if (result != CreationResult.SUCCESS) {
+                return result;
+            }
         }
 
-        return resultMax;
+        return CreationResult.SUCCESS;
     }
 
     /**
@@ -128,10 +130,10 @@ public class LocationUtil {
      * @return The outline of the mine
      */
     public static List<Location> getOutline(Location location, int width) {
-        final List<Location> outline = new ArrayList<>();
+        List<Location> outline = new ArrayList<>();
 
-        final Location max = LocationUtil.getBorderLocationFromCreationPoint(location, width, width)[0][1]; // Get the max location (top right corner)
-        final Location min = LocationUtil.getBorderLocationFromCreationPoint(location, width, width)[0][0]; // Get the min location (bottom-left corner)
+        Location max = LocationUtil.getBorderLocationFromCreationPoint(location, width, width)[0][1]; // Get the max location (top right corner)
+        Location min = LocationUtil.getBorderLocationFromCreationPoint(location, width, width)[0][0]; // Get the min location (bottom-left corner)
 
         // Get the outline of the top layer
         for (int x = min.getBlockX(); x <= max.getBlockX(); x++) {
@@ -158,8 +160,8 @@ public class LocationUtil {
     public static Location[][] getMineLocationFromCreationPoint(Location location, int width, int depth) {
         depth = depth - 1; // Subtract 1 to get the correct depth
 
-        final Location maxLocation = location.clone().add(-1, 0, -1); // Mine starts 1 block back (to the left and back) for the border
-        final Location minLocation = location.clone().add(-width, -depth, -width);
+        Location maxLocation = location.clone().add(-1, 0, -1); // Mine starts 1 block back (to the left and back) for the border
+        Location minLocation = location.clone().add(-width, -depth, -width);
 
         return new Location[][]{
                 {minLocation, maxLocation}
@@ -179,8 +181,8 @@ public class LocationUtil {
         width = width + 1; // Add 1 to get the correct width
         depth = depth + 1; // Add 1 to get the correct depth
 
-        final Location maxLocation = location.clone();
-        final Location minLocation = location.clone().add(-width, 0, -depth);
+        Location maxLocation = location.clone();
+        Location minLocation = location.clone().add(-width, 0, -depth);
 
         return new Location[][]{
                 {minLocation, maxLocation}
@@ -188,10 +190,10 @@ public class LocationUtil {
     }
 
     public static Mine getMineInteractionBlockFromLocation(Player player, Location location) {
-        final FinePosition finePosition = new FinePosition(
+        FinePosition finePosition = new FinePosition(
                 location.getBlockX(),
                 location.getBlockY() + 1,
-                location.getBlockZ() ,
+                location.getBlockZ(),
                 location.getWorld().getName()
         );
 
