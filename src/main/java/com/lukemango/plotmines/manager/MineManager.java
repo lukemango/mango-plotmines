@@ -99,7 +99,8 @@ public class MineManager {
         interactionBlock.getBlock().getState().update();
 
         // Create the hologram for the mine
-        if (ConfigManager.get().getConfig().areHologramsEnabled()) {
+        if (ConfigManager.get().getConfig().areHologramsEnabled()
+                && PlotMines.getInstance().getHolograms() != null) {
             plugin.getHolograms().createHologram(mine);
         }
 
@@ -120,7 +121,8 @@ public class MineManager {
         });
 
         // Remove the hologram
-        if (ConfigManager.get().getConfig().areHologramsEnabled()) {
+        if (ConfigManager.get().getConfig().areHologramsEnabled()
+                && PlotMines.getInstance().getHolograms() != null) {
             PlotMines.getInstance().getHolograms().removeHologram(mine);
         }
 

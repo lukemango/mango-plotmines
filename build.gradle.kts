@@ -11,12 +11,12 @@ plugins {
 }
 
 group = "com.lukemango"
-version = "1.0.3".decorateVersion()
+version = "1.0.4".decorateVersion()
 description = "PlotMines for PlotSquared"
 
 bukkitPluginYaml {
     main = "com.lukemango.plotmines.PlotMines"
-    apiVersion = "1.20"
+    apiVersion = "1.18"
     website = "https://github.com/lukemango/mango-plotmines"
     authors = listOf("lukemango")
     softDepend = listOf("FastAsyncWorldEdit", "PlotSquared", "DecentHolograms")

@@ -22,7 +22,8 @@ public class AdminReloadCommand extends AbstractCommand {
         PlayerInteractListener.updateDuration(); // Update the preview duration
 
         // Reload the holograms if they are enabled
-        if (ConfigManager.get().getConfig().areHologramsEnabled()) {
+        if (ConfigManager.get().getConfig().areHologramsEnabled()
+                && PlotMines.getInstance().getHolograms() != null) {
             PlotMines.getInstance().getHolograms().reloadHolograms();
         }
 

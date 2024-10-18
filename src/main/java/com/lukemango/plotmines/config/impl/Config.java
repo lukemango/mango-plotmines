@@ -140,13 +140,20 @@ public class Config extends AbstractConfig {
      * @return If the material is valid
      */
     private boolean checkMaterial(CommandSender sender, @Nullable String value, String path) {
-        try {
-            Material.valueOf(String.valueOf(value).toUpperCase());
-        } catch (Exception e) {
-            this.sendMaterialError(sender, value == null ? "null" : value, path);
+        if (value == null) {
+            this.sendMaterialError(sender, "null", path);
             return false;
         }
-        return true;
+
+        value = value.toUpperCase();
+
+        try {
+            Material.valueOf(value);
+            return true;
+        } catch (Exception e) {
+            this.sendMaterialError(sender, value, path);
+            return false;
+        }
     }
 
     private void sendMaterialError(CommandSender sender, String value, String path) {
