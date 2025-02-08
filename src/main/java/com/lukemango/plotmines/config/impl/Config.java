@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -31,6 +30,7 @@ public class Config extends AbstractConfig {
 
     /**
      * Get the preview material from the config
+     *
      * @param sender The command sender used for error messages
      * @return The preview material
      */
@@ -82,8 +82,9 @@ public class Config extends AbstractConfig {
 
     /**
      * Get a mine item from the config
+     *
      * @param sender The command sender used for error messages
-     * @param mine The mine to get
+     * @param mine   The mine to get
      * @return The mine item
      */
     public MineItem getMineItem(CommandSender sender, String mine) {
@@ -130,14 +131,15 @@ public class Config extends AbstractConfig {
         }
 
         // Create and return the mine item object
-        return new MineItem(mine, width, depth, resetPercent, resetDelay, border, interactionBlock, creationItem, composition);
+        return new MineItem(mine, width, depth, resetPercent, border, interactionBlock, creationItem, composition);
     }
 
     /**
      * Check if the material is valid
+     *
      * @param sender The command sender used for error messages
-     * @param value The value to check
-     * @param path The path in the config
+     * @param value  The value to check
+     * @param path   The path in the config
      * @return If the material is valid
      */
     private boolean checkMaterial(CommandSender sender, @Nullable String value, String path) {

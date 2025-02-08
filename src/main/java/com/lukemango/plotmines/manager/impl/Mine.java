@@ -48,7 +48,6 @@ public class Mine {
             FinePosition minimum,
             FinePosition maximum,
             double resetPercentage,
-            int resetDelay,
             FinePosition resetTeleportLocation,
             Map<Material, Double> composition,
             int totalBlocks
@@ -60,10 +59,12 @@ public class Mine {
         this.minimum = minimum;
         this.maximum = maximum;
         this.resetPercentage = resetPercentage;
-        this.resetDelay = resetDelay;
         this.resetTeleportLocation = resetTeleportLocation;
         this.composition = composition;
         this.totalBlocks = totalBlocks;
+
+        // Get the reset delay from the config so it stays up to date
+        this.resetDelay = ConfigManager.get().getConfig().getYamlConfiguration().getConfigurationSection("mines." + mineType).getInt("reset-delay");
     }
 
     public void decrementBlocksRemaining() {
@@ -219,14 +220,6 @@ public class Mine {
 
     public void setResetPercentage(double resetPercentage) {
         this.resetPercentage = resetPercentage;
-    }
-
-    public int getResetDelay() {
-        return resetDelay;
-    }
-
-    public void setResetDelay(int resetDelay) {
-        this.resetDelay = resetDelay;
     }
 
     public FinePosition getResetTeleportLocation() {
