@@ -108,6 +108,7 @@ public class Config extends AbstractConfig {
         final int width = section.getInt("width");
         final int depth = section.getInt("depth");
         final double resetPercent = section.getDouble("reset-percent");
+        final int resetDelay = section.getInt("reset-delay");
         final Material border = Material.valueOf(section.getString("border").toUpperCase());
         final Material interactionBlock = Material.valueOf(section.getString("interaction-block").toUpperCase());
 
@@ -129,7 +130,7 @@ public class Config extends AbstractConfig {
         }
 
         // Create and return the mine item object
-        return new MineItem(mine, width, depth, resetPercent, border, interactionBlock, creationItem, composition);
+        return new MineItem(mine, width, depth, resetPercent, resetDelay, border, interactionBlock, creationItem, composition);
     }
 
     /**
