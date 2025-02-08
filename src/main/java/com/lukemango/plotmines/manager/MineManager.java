@@ -76,6 +76,7 @@ public class MineManager {
                 minimum,
                 maximum,
                 mineItem.resetPercent(),
+                1,
                 resetTeleportLocation,
                 mineItem.composition(),
                 this.calculateTotalBlocks(minimum, maximum)

@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.lukemango"
-version = "1.0.4".decorateVersion()
+version = "1.0.5".decorateVersion()
 description = "PlotMines for PlotSquared"
 
 bukkitPluginYaml {

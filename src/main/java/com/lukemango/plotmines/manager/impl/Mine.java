@@ -33,6 +33,7 @@ public class Mine {
     private FinePosition minimum;
     private FinePosition maximum;
     private double resetPercentage;
+    private int resetDelay;
     private FinePosition resetTeleportLocation; // Also used as the interaction block
     private Map<Material, Double> composition;
     private int totalBlocks;
@@ -47,6 +48,7 @@ public class Mine {
             FinePosition minimum,
             FinePosition maximum,
             double resetPercentage,
+            int resetDelay,
             FinePosition resetTeleportLocation,
             Map<Material, Double> composition,
             int totalBlocks
@@ -58,6 +60,7 @@ public class Mine {
         this.minimum = minimum;
         this.maximum = maximum;
         this.resetPercentage = resetPercentage;
+        this.resetDelay = resetDelay;
         this.resetTeleportLocation = resetTeleportLocation;
         this.composition = composition;
         this.totalBlocks = totalBlocks;
@@ -71,7 +74,7 @@ public class Mine {
         if (minedPercentage >= resetPercentage) {
             if (this.isResetting) return;
             this.isResetting = true;
-            Bukkit.getScheduler().runTaskLaterAsynchronously(PlotMines.getInstance(), this::reset, 20); // 1 second delay
+            Bukkit.getScheduler().runTaskLaterAsynchronously(PlotMines.getInstance(), this::reset, this.resetDelay * 20L);
         }
     }
 
@@ -216,6 +219,14 @@ public class Mine {
 
     public void setResetPercentage(double resetPercentage) {
         this.resetPercentage = resetPercentage;
+    }
+
+    public int getResetDelay() {
+        return resetDelay;
+    }
+
+    public void setResetDelay(int resetDelay) {
+        this.resetDelay = resetDelay;
     }
 
     public FinePosition getResetTeleportLocation() {

@@ -22,6 +22,7 @@ mines:
     width: 5 # The width of the mine
     depth: 5 # The depth of the mine
     reset-percent: 50.0 # The percentage of the mine that will be reset
+    reset-delay: 1 # The delay in seconds before the mine resets after percentage is reached
     border: BEDROCK # The border surrounding the mine
     interaction-block: DIAMOND_BLOCK # The block that players will interact with to remove the mine
     creation_item: # The item that will be given to players to create the mine (/mine give <player> <mine>)
