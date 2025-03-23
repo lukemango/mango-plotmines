@@ -7,3 +7,6 @@ build
 # User-specific stuff
 .idea/
 .vscode/
+
+# Ignore libs
+libs/

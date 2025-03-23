@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.lukemango"
-version = "1.0.6".decorateVersion()
+version = "1.0.7".decorateVersion()
 description = "PlotMines for PlotSquared"
 
 bukkitPluginYaml {
@@ -29,11 +29,12 @@ repositories {
     maven ("https://oss.sonatype.org/content/groups/public/")
     maven ("https://repo.mattstudios.me/artifactory/public/") // TriumphGui
     maven ("https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/") // PlugMan
+
 }
 
 dependencies {
     // Spigot
-    compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT")
 
     // Cloud
     implementation("org.incendo:cloud-paper:2.0.0-beta.8")
@@ -61,6 +62,9 @@ dependencies {
 
     // PlugMan
     compileOnly("com.rylinaux:PlugMan:2.3.3")
+
+    // Libs folder (TokenEnchant)
+    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     // bStats
     implementation("org.bstats:bstats-bukkit:3.0.2")

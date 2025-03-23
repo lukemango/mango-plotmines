@@ -11,6 +11,7 @@ import com.lukemango.plotmines.listener.PlayerChatListener;
 import com.lukemango.plotmines.listener.PlayerInteractListener;
 import com.lukemango.plotmines.listener.PlayerJoinListener;
 import com.lukemango.plotmines.listener.PlotListener;
+import com.lukemango.plotmines.listener.TokenEnchantListener;
 import com.lukemango.plotmines.manager.MineManager;
 import com.lukemango.plotmines.storage.JsonMineStorage;
 import com.lukemango.plotmines.storage.JsonMinesToGiveStorage;
@@ -95,6 +96,12 @@ public final class PlotMines extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+
+        // If TokenEnchant enabled, enable listener
+        if (getServer().getPluginManager().getPlugin("TokenEnchant") != null) {
+            this.getLogger().info("TokenEnchant found, enabling support");
+            getServer().getPluginManager().registerEvents(new TokenEnchantListener(), this);
+        }
 
         // bStats
         new Metrics(this, 22070);
