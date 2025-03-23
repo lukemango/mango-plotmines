@@ -184,7 +184,7 @@ public class ItemBuilder {
         final ItemMeta meta = this.item.getItemMeta();
         if (meta == null) return this;
 
-        meta.addEnchant(Enchantment.PROTECTION, 1, true);
+        meta.addEnchant(Enchantment.INFINITY, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         this.item.setItemMeta(meta);
 
