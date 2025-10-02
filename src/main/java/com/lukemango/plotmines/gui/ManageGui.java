@@ -25,11 +25,10 @@ public class ManageGui {
 
     public ManageGui(Mine mine) {
         // Set the title
-        gui.updateTitle(LegacyComponentSerializer.legacySection().serialize(
-                Colourify.colour(
+        gui.updateTitle(Colourify.colour(
                         ConfigManager.get().getManageGuiConfig().getTitle()
                                 .replace("<mine>", mine.getDisplayName())
-                )));
+                ));
 
         // Add the decoration items
         ConfigManager.get().getManageGuiConfig().getItems().forEach((item, slots) -> {

@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.lukemango"
-version = "1.0.7".decorateVersion()
+version = "1.0.8".decorateVersion()
 description = "PlotMines for PlotSquared"
 
 bukkitPluginYaml {
@@ -29,7 +29,6 @@ repositories {
     maven ("https://oss.sonatype.org/content/groups/public/")
     maven ("https://repo.mattstudios.me/artifactory/public/") // TriumphGui
     maven ("https://raw.githubusercontent.com/TheBlackEntity/PlugMan/repository/") // PlugMan
-
 }
 
 dependencies {
@@ -55,7 +54,7 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:4.17.0")
 
     // TriumphGui
-    implementation("dev.triumphteam:triumph-gui:3.1.7") { exclude("net.kyori") }
+    implementation("dev.triumphteam:triumph-gui:3.1.13") { exclude("net.kyori") }
 
     // DecentHolograms
     compileOnly("com.github.decentsoftware-eu:decentholograms:2.8.6")
